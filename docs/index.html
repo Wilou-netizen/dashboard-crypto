@@ -1,17 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+  <meta charset="UTF-8">
   <title>📊 Informe de mercado</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
-    .moneda { margin-bottom: 15px; padding: 10px; background: #fff; border-radius: 8px; box-shadow: 0 0 5px #ccc; }
-    .accion { font-weight: bold; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    .moneda {
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 5px #ccc;
+    }
+    .accion {
+      font-weight: bold;
+    }
+    pre {
+      background: #eef;
+      padding: 15px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
   <h1>📊 Informe de mercado</h1>
+
+  <!-- Informe completo generado por n8n -->
+  <pre id="informe-mercado">Cargando informe...</pre>
+
+  <!-- Hora de actualización -->
   <p id="hora">🕒 Cargando hora...</p>
 
+  <!-- Bloques individuales por moneda -->
   <div id="binancecoin" class="moneda"></div>
   <div id="bitcoin" class="moneda"></div>
   <div id="ethereum" class="moneda"></div>
