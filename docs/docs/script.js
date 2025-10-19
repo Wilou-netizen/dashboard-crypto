@@ -10,7 +10,7 @@ function formatearAccion(accion) {
 }
 
 function actualizarInforme() {
-  fetch("https://tu-webhook-n8n-url") // ← reemplaza con tu URL real
+  fetch("fetch("https://wilou99.app.n8n.cloud/webhook/dashboard-crypto")
     .then(res => res.json())
     .then(data => {
       const ahora = new Date();
