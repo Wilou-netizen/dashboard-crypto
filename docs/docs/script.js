@@ -1,21 +1,34 @@
 const monedas = ["binancecoin", "bitcoin", "ethereum", "ripple", "solana", "tether"];
 
-function actualizarLuces() {
+function formatearAccion(accion) {
+  return {
+    "comprar si o si": "🟢 Comprar sí o sí",
+    "comprar": "🟡 Comprar",
+    "no hacer nada": "⚪️ No hacer nada",
+    "vender": "🔴 Vender"
+  }[accion] || "❓ Sin datos";
+}
+
+function actualizarInforme() {
   fetch("https://tu-webhook-n8n-url") // ← reemplaza con tu URL real
     .then(res => res.json())
     .then(data => {
+      const ahora = new Date();
+      document.getElementById("hora").textContent =
+        `🕒 ${ahora.toLocaleDateString()} ${ahora.toLocaleTimeString()}`;
+
       monedas.forEach(moneda => {
-        const estado = data[moneda]; // ej: "comprar"
-        const color = {
-          "comprar si o si": "green",
-          "comprar": "yellow",
-          "no hacer nada": "white",
-          "vender": "red"
-        }[estado] || "gray";
-        document.getElementById(moneda).style.backgroundColor = color;
+        const info = data[moneda]; // debe contener { cambio, precio, accion }
+        const div = document.getElementById(moneda);
+        div.innerHTML = `
+          <h3>⬆️ ${moneda.toUpperCase()}</h3>
+          <p>Cambio: ${info.cambio}%</p>
+          <p>Precio: $${info.precio}</p>
+          <p class="accion">Acción sugerida: ${formatearAccion(info.accion)}</p>
+        `;
       });
     });
 }
 
-actualizarLuces();
-setInterval(actualizarLuces, 900000); // cada 15 minutos
+actualizarInforme();
+setInterval(actualizarInforme, 900000); // cada 15 minutos
