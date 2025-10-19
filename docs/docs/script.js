@@ -1,34 +1,27 @@
-const monedas = ["binancecoin", "bitcoin", "ethereum", "ripple", "solana", "tether"];
+fetch("https://wilou99.app.n8n.cloud/webhook/dashboard-crypto")
+  .then(response => response.json())
+  .then(data => {
+    // Mostrar el informe completo en el bloque <pre>
+    document.getElementById("informe-mercado").textContent = data.informe;
 
-function formatearAccion(accion) {
-  return {
-    "comprar si o si": "🟢 Comprar sí o sí",
-    "comprar": "🟡 Comprar",
-    "no hacer nada": "⚪️ No hacer nada",
-    "vender": "🔴 Vender"
-  }[accion] || "❓ Sin datos";
-}
+    // Extraer la hora del informe y mostrarla en <p id="hora">
+    const lineas = data.informe.split("\n");
+    const hora = lineas.find(linea => linea.startsWith("🕒"));
+    if (hora) {
+      document.getElementById("hora").textContent = hora;
+    }
 
-function actualizarInforme() {
-  fetch("fetch("https://wilou99.app.n8n.cloud/webhook/dashboard-crypto")
-    .then(res => res.json())
-    .then(data => {
-      const ahora = new Date();
-      document.getElementById("hora").textContent =
-        `🕒 ${ahora.toLocaleDateString()} ${ahora.toLocaleTimeString()}`;
-
-      monedas.forEach(moneda => {
-        const info = data[moneda]; // debe contener { cambio, precio, accion }
-        const div = document.getElementById(moneda);
-        div.innerHTML = `
-          <h3>⬆️ ${moneda.toUpperCase()}</h3>
-          <p>Cambio: ${info.cambio}%</p>
-          <p>Precio: $${info.precio}</p>
-          <p class="accion">Acción sugerida: ${formatearAccion(info.accion)}</p>
-        `;
-      });
+    // Mostrar cada moneda en su propio <div>
+    const bloques = data.informe.split("\n\n").slice(1); // omitir encabezado
+    bloques.forEach(bloque => {
+      const nombre = bloque.split("\n")[0].replace("⬆️ ", "").toLowerCase();
+      const div = document.getElementById(nombre);
+      if (div) {
+        div.innerHTML = bloque.replace(/\n/g, "<br>");
+      }
     });
-}
-
-actualizarInforme();
-setInterval(actualizarInforme, 900000); // cada 15 minutos
+  })
+  .catch(error => {
+    console.error("Error al obtener el informe:", error);
+    document.getElementById("informe-mercado").textContent = "Error al cargar el informe.";
+  });
