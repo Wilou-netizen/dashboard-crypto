@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard Cripto</title>
+  <title>📊 Informe de mercado</title>
   <style>
-    .moneda { margin: 10px; }
-    .luz {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background-color: gray;
-      display: inline-block;
-      margin-left: 10px;
-    }
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    .moneda { margin-bottom: 15px; padding: 10px; background: #fff; border-radius: 8px; box-shadow: 0 0 5px #ccc; }
+    .accion { font-weight: bold; }
   </style>
 </head>
 <body>
-  <h1>Señales de Criptomonedas</h1>
-  <div class="moneda">BinanceCoin <div id="binancecoin" class="luz"></div></div>
-  <div class="moneda">Bitcoin <div id="bitcoin" class="luz"></div></div>
-  <div class="moneda">Ethereum <div id="ethereum" class="luz"></div></div>
-  <div class="moneda">Ripple <div id="ripple" class="luz"></div></div>
-  <div class="moneda">Solana <div id="solana" class="luz"></div></div>
-  <div class="moneda">Tether <div id="tether" class="luz"></div></div>
+  <h1>📊 Informe de mercado</h1>
+  <p id="hora">🕒 Cargando hora...</p>
+
+  <div id="binancecoin" class="moneda"></div>
+  <div id="bitcoin" class="moneda"></div>
+  <div id="ethereum" class="moneda"></div>
+  <div id="ripple" class="moneda"></div>
+  <div id="solana" class="moneda"></div>
+  <div id="tether" class="moneda"></div>
 
   <script src="script.js"></script>
 </body>
